@@ -1,3 +1,5 @@
+# QT_VERSION = 5.12.12
+
 CONFIG += ordered
 
 TEMPLATE = subdirs

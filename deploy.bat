@@ -1,0 +1,1 @@
+F:/Qt/5.12.12/mingw73_32/bin/windeployqt.exe E:/WORK/convey_windows_app
