@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>911</height>
+    <height>795</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,20 +16,76 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QTextEdit" name="textEdit"/>
+     <widget class="QTextEdit" name="textEdit">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>250</height>
+       </size>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QToolBox" name="toolBox">
       <property name="currentIndex">
-       <number>5</number>
+       <number>0</number>
       </property>
+      <widget class="QWidget" name="free">
+       <attribute name="label">
+        <string>Free</string>
+       </attribute>
+       <widget class="QWidget" name="layoutWidget_15">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>0</y>
+          <width>731</width>
+          <height>161</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_16">
+         <item>
+          <widget class="QLabel" name="label_16">
+           <property name="text">
+            <string>condition:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPlainTextEdit" name="plainTextEdit_4">
+           <property name="plainText">
+            <string>{
+
+}</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QPushButton" name="btnSend">
+        <property name="geometry">
+         <rect>
+          <x>610</x>
+          <y>170</y>
+          <width>121</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Send</string>
+        </property>
+       </widget>
+      </widget>
       <widget class="QWidget" name="windows">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
          <width>782</width>
-         <height>233</height>
+         <height>305</height>
         </rect>
        </property>
        <attribute name="label">
@@ -40,8 +96,8 @@
          <rect>
           <x>10</x>
           <y>0</y>
-          <width>80</width>
-          <height>21</height>
+          <width>111</width>
+          <height>31</height>
          </rect>
         </property>
         <property name="text">
@@ -55,7 +111,7 @@
          <x>0</x>
          <y>0</y>
          <width>782</width>
-         <height>233</height>
+         <height>305</height>
         </rect>
        </property>
        <attribute name="label">
@@ -66,8 +122,8 @@
          <rect>
           <x>240</x>
           <y>0</y>
-          <width>101</width>
-          <height>21</height>
+          <width>111</width>
+          <height>31</height>
          </rect>
         </property>
         <property name="text">
@@ -103,7 +159,7 @@
          <x>0</x>
          <y>0</y>
          <width>782</width>
-         <height>233</height>
+         <height>305</height>
         </rect>
        </property>
        <attribute name="label">
@@ -136,8 +192,8 @@
          <rect>
           <x>290</x>
           <y>30</y>
-          <width>101</width>
-          <height>21</height>
+          <width>111</width>
+          <height>31</height>
          </rect>
         </property>
         <property name="text">
@@ -173,7 +229,7 @@
          <x>0</x>
          <y>0</y>
          <width>782</width>
-         <height>233</height>
+         <height>305</height>
         </rect>
        </property>
        <attribute name="label">
@@ -206,8 +262,8 @@
          <rect>
           <x>250</x>
           <y>10</y>
-          <width>101</width>
-          <height>21</height>
+          <width>111</width>
+          <height>31</height>
          </rect>
         </property>
         <property name="text">
@@ -265,7 +321,7 @@
          <x>0</x>
          <y>0</y>
          <width>782</width>
-         <height>233</height>
+         <height>305</height>
         </rect>
        </property>
        <attribute name="label">
@@ -320,8 +376,8 @@
          <rect>
           <x>240</x>
           <y>10</y>
-          <width>101</width>
-          <height>21</height>
+          <width>111</width>
+          <height>31</height>
          </rect>
         </property>
         <property name="text">
@@ -335,7 +391,7 @@
          <x>0</x>
          <y>0</y>
          <width>782</width>
-         <height>233</height>
+         <height>305</height>
         </rect>
        </property>
        <attribute name="label">
@@ -401,10 +457,10 @@ alert('123');
        <widget class="QPushButton" name="btnEvaluateScript">
         <property name="geometry">
          <rect>
-          <x>320</x>
-          <y>10</y>
-          <width>101</width>
-          <height>21</height>
+          <x>310</x>
+          <y>0</y>
+          <width>111</width>
+          <height>31</height>
          </rect>
         </property>
         <property name="text">
@@ -418,7 +474,7 @@ alert('123');
          <x>0</x>
          <y>0</y>
          <width>782</width>
-         <height>233</height>
+         <height>305</height>
         </rect>
        </property>
        <attribute name="label">
@@ -491,8 +547,8 @@ return true;
          <rect>
           <x>230</x>
           <y>180</y>
-          <width>101</width>
-          <height>21</height>
+          <width>111</width>
+          <height>31</height>
          </rect>
         </property>
         <property name="text">
@@ -530,17 +586,6 @@ return true;
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

@@ -189,3 +189,10 @@ void MainWindow::on_btnMonitorFor_clicked()
     sendMessage(QString("{ \"type\": \"monitorFor\", \"data\": { \"monitorId\": %1, \"scriptId\": \"%2\" } }").arg(monitorId).arg(scriptId));
 }
 
+
+void MainWindow::on_btnSend_clicked()
+{
+    QString code = ui->plainTextEdit_4->toPlainText();
+    sendMessage(code);
+}
+

@@ -38,6 +38,8 @@ private slots:
 
     void on_btnMonitorFor_clicked();
 
+    void on_btnSend_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
