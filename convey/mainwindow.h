@@ -40,6 +40,8 @@ private slots:
 
     void on_btnSend_clicked();
 
+    void on_btnStopMonitorFor_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

@@ -147,6 +147,7 @@ void MainWindow::on_btnMonitorFor_clicked()
     QString monitorId = ui->lineEditTabId_11->text();
     QString condition = ui->plainTextEdit_3->toPlainText();
     QString script = ui->plainTextEdit_2->toPlainText();
+    bool bStop = ui->checkStopMonitorForOnce->isChecked();
 
     if(monitorId.isEmpty()) return;
     if(script.isEmpty()) return;
@@ -156,20 +157,22 @@ void MainWindow::on_btnMonitorFor_clicked()
     QString scriptId = QString("monitorFor") + uuid.toString();
 
     QString addtionalCode =
+            "var stop = false;\n"
+            "var scriptId = '" + scriptId + "';" + "\n"
+            "var monitorId = '" + monitorId + "';" + "\n"
             "var timer = setInterval(async () => {\n"
-            "   var scriptId = '" + scriptId + "';" + "\n"
-            "   var monitorId = '" + monitorId + "';" + "\n"
-            "   if(condition()) {" + "\n"
+            "   if(condition() && !stop) {" + "\n"
             "      clearInterval(timer);" + "\n"
+            "      stop = true;" + "\n"
             "      try {" + "\n"
-            "      const ret = main();" + "\n"
-            "      await window.postMessage({" + "\n"
+            "       const ret = main();" + "\n"
+            "       await window.postMessage({" + "\n"
             "          type: 'monitorFor'," + "\n"
             "          scriptId: scriptId," + "\n"
             "          monitorId: monitorId," + "\n"
             "          status: true," + "\n"
             "          data: ret," + "\n"
-            "      }, '*');" + "\n"
+            "       }, '*');" + "\n"
             "      } catch (error) {" + "\n"
             "          console.log(error);" + "\n"
             "          await window.postMessage({" + "\n"
@@ -182,11 +185,17 @@ void MainWindow::on_btnMonitorFor_clicked()
             "          }, '*');" + "\n"
             "      }" + "\n"
             "   }" + "\n"
-            "}, 1000)";
+            "}, 1000);\n"
+            "window.addEventListener('message', (event) => {\n"
+            "   if(event.data?.type == 'stopMonitorFor' && event.data?.scriptId == scriptId && event.data?.monitorId == monitorId) {\n"
+            "       stop = true;\n"
+            "       clearInterval(timer);\n"
+            "   }\n"
+            "})";
 
     server.insertConveyScript(scriptId, (condition + "\n" + script + "\n" + addtionalCode).toLocal8Bit());
 
-    sendMessage(QString("{ \"type\": \"monitorFor\", \"data\": { \"monitorId\": %1, \"scriptId\": \"%2\" } }").arg(monitorId).arg(scriptId));
+    sendMessage(QString("{ \"type\": \"monitorFor\", \"data\": { \"monitorId\": \"%1\", \"scriptId\": \"%2\", \"bOnceFoundStop\": %3 } }").arg(monitorId).arg(scriptId).arg(bStop));
 }
 
 
@@ -194,5 +203,14 @@ void MainWindow::on_btnSend_clicked()
 {
     QString code = ui->plainTextEdit_4->toPlainText();
     sendMessage(code);
+}
+
+
+void MainWindow::on_btnStopMonitorFor_clicked()
+{
+    QString monitorId = ui->lineEditTabId_12->text();
+    if(monitorId.isEmpty()) return;
+
+    sendMessage(QString("{ \"type\": \"stopMonitorFor\", \"data\": { \"monitorId\": \"%1\" } }").arg(monitorId));
 }
 
