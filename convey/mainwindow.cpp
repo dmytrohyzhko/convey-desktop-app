@@ -112,11 +112,11 @@ void MainWindow::on_btnEvaluateScript_clicked()
     if(script.isEmpty()) return;
 
     QUuid uuid = QUuid::createUuid();
-    QString messageId = QString("evaluateScript") + uuid.toString();
+    QString messageId = QString("evaluateScript") + QString(uuid.toString().toLocal8Bit().toBase64());
 
     QString addtionalCode =
-        "(async() => {\n"
-        "var messageId = '" + messageId + "'" + "\n"
+        "\n(async() => {\n"
+        "var messageId = '" + messageId + "'" + ";\n"
         "try {" + "\n"
         "  const ret = main();" + "\n"
         "  await window.postMessage({" + "\n"
@@ -136,9 +136,11 @@ void MainWindow::on_btnEvaluateScript_clicked()
         "  }, '*');" + "\n"
         "}})()";
 
-    server.insertConveyScript(messageId, (script + addtionalCode).toLocal8Bit());
+    QString mainScript = script + addtionalCode;
+    server.insertConveyScript(messageId, mainScript.toLocal8Bit());
 
-    sendMessage(QString("{ \"type\": \"evaluateScript\", \"data\": { \"tabId\": %1, \"scriptId\": \"%2\" } }").arg(tabId).arg(messageId));
+
+    sendMessage(QString("{ \"type\": \"evaluateScript\", \"data\": { \"tabId\": %1, \"scriptId\": \"%2\", \"script\":\"%3\" } }").arg(tabId).arg(messageId).arg(QString(mainScript.toLocal8Bit().toBase64())));
 }
 
 
@@ -154,7 +156,7 @@ void MainWindow::on_btnMonitorFor_clicked()
     if(condition.isEmpty()) return;
 
     QUuid uuid = QUuid::createUuid();
-    QString scriptId = QString("monitorFor") + uuid.toString();
+    QString scriptId = QString("monitorFor") + QString(uuid.toString().toLocal8Bit().toBase64());
 
     QString addtionalCode =
             "var stop = false;\n"
@@ -193,9 +195,10 @@ void MainWindow::on_btnMonitorFor_clicked()
             "   }\n"
             "})";
 
-    server.insertConveyScript(scriptId, (condition + "\n" + script + "\n" + addtionalCode).toLocal8Bit());
+    QString mainScript = (condition + "\n" + script + "\n" + addtionalCode);
+    server.insertConveyScript(scriptId, mainScript.toLocal8Bit());
 
-    sendMessage(QString("{ \"type\": \"monitorFor\", \"data\": { \"monitorId\": \"%1\", \"scriptId\": \"%2\", \"bOnceFoundStop\": %3 } }").arg(monitorId).arg(scriptId).arg(bStop));
+    sendMessage(QString("{ \"type\": \"monitorFor\", \"data\": { \"monitorId\": \"%1\", \"scriptId\": \"%2\", \"bOnceFoundStop\": %3, \"script\": \"%4\" } }").arg(monitorId).arg(scriptId).arg(bStop).arg(QString(mainScript.toLocal8Bit().toBase64())));
 }
 
 

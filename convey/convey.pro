@@ -33,9 +33,9 @@ INCLUDEPATH += ../httpserver
 LIBS += -L../lib
 
 win32 {
-#    debug: LIBS += -lqhttpserverd
-#    else: LIBS += -lqhttpserver
-    LIBS += -lqhttpserver
+    debug: LIBS += -lqhttpserverd
+    else: LIBS += -lqhttpserver
+#    LIBS += -lqhttpserver
 } else {
     LIBS += -lqhttpserver
 }
